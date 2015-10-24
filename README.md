@@ -14,7 +14,7 @@ You should write a double PQ data structure that stores objects according to the
 The double PQ class is further indexable to allow updates of entered items.
 You will want users to be able to enter details about cars that they are considering buying.
 The user should then be able to efficiently retrieve the car with the lowest mileage or lowest price.
-These retrievals should be possible on the set of all enetered cars or on the set of all cars of a specific make and model (e.g., "lowest price Ford Fiesta", "lowest mileage Cadillac Escalade").
+These retrievals should be possible on the set of all entered cars or on the set of all cars of a specific make and model (e.g., "lowest price Ford Fiesta", "lowest mileage Cadillac Escalade").
 
 ##Specifications:
 1.  First you must create a class to store data about cars to buy
@@ -30,7 +30,7 @@ These retrievals should be possible on the set of all enetered cars or on the se
 	1.  Add a car
 		*  This will (one at a time) prompt the user for all of the above-listed attributes of a car to keep track of
 	1.  Update a car
-		*  This option will propmt the user for the VIN number of a car to update, and then ask the user if they would like to update 1) the price of the car, 2) the mileage of the car, or 3) the color of the car
+		*  This option will prompt the user for the VIN number of a car to update, and then ask the user if they would like to update 1) the price of the car, 2) the mileage of the car, or 3) the color of the car
 	1.  Remove a specific car from consideration
 		*  This option will prompt the user for the VIN number of a car to remove from the data structure (e.g., if it is no longer for sale)
 		*  Note that this mean you will need to support removal of cars other than the minimum (price or mileage) car
