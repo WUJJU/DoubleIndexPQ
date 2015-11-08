@@ -1,23 +1,4 @@
-
-    /******************************************************************************
-     *  Compilation:  javac MinPQ.java
-     *  Execution:    java MinPQ < input.txt
-     *  Dependencies: StdIn.java StdOut.java
-     *  
-     *  Generic min priority queue implementation with a binary heap.
-     *  Can be used with a comparator instead of the natural order.
-     *
-     *  % java MinPQ < tinyPQ.txt
-     *  E A E (6 left on pq)
-     *
-     *  We use a one-based array to simplify parent and child calculations.
-     *
-     *  Can be optimized by replacing full exchanges with half exchanges
-     *  (ala insertion sort).
-     *
-     ******************************************************************************/
-
-    import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -366,16 +347,71 @@ import java.util.Set;
                  swimMileage(N);
              }
          }
-         
+         /**
+          * Sort double PQ by one of attributes
+          */
+         public void sort(DoubleCar[] pq,int t) {
+             int G=N;
+             if(t==0){//compare based on price
+            
+             for (int k = G/2; k >= 1; k--)
+                 sink(pq, k, G,0);
+             while (G > 1) {
+                 exch(pq, 1, G--,0);
+                 sink(pq, 1, G,0);
+             }
+             }else if(t==1){
+               
+                 for (int k = G/2; k >= 1; k--)
+                     sink(pq, k, G,1);
+                 while (G > 1) {
+                     exch(pq, 1, G--,1);
+                     sink(pq, 1, G,1);
+                 }  
+                 
+             }
+         }
+         private static void sink(DoubleCar[] pq, int k, int G,int t) {
+             while (2*k <= G) {
+                 int j = 2*k;
+                 if (j < G && less(pq, j, j+1,t)) j++;
+                 if (!less(pq, k, j,t)) break;
+                 exch(pq, k, j,t);
+                 k = j;
+             }
+         }
+         private static boolean less(DoubleCar[] pq, int i, int j,int t) {
+             if(t==0){//compare by price
+                   return pq[i].car_p.getPrice()<pq[j].car_p.getPrice();}
+             else//compare by mileage
+                   return pq[i].car_m.getMileage()<pq[j].car_m.getMileage();
+                     
+         }
+
+         private static void exch(DoubleCar[] pq, int i, int j,int t) {
+             if(t==0){//exchange car_p
+             Car swap = pq[i].car_p;
+             pq[i].car_p = pq[j].car_p;
+             pq[j].car_p = swap;
+             }else{//exch car_m
+                 Car swap = pq[i].car_m;
+                 pq[i].car_m = pq[j].car_m;
+                 pq[j].car_m = swap;
+             }
+         }
+
          /**
           * find lowest price or mileage car by given model and make
           */
          public Car findP(String model,String make){
-             for(int i=1;i<N;i++){
+               sort(pq,0);
+             for(int i=1;i<=N;i++){
                 
                  String md=pq[i].car_p.getModel();
                  String mk=pq[i].car_p.getMake();
+               
                  if(md.equals(model)&&mk.equals(make)){
+                
                     return pq[i].car_p; 
                  }
                 
@@ -384,7 +420,8 @@ import java.util.Set;
           
          }
          public Car findM(String model,String make){
-             for(int i=1;i<N;i++){
+             sort(pq,1);
+             for(int i=1;i<=N;i++){
                  String md=pq[i].car_m.getModel();
                  String mk=pq[i].car_m.getMake();
                  if(md.equals(model)&&mk.equals(make)){
@@ -395,13 +432,44 @@ import java.util.Set;
              return null;
           
          }
+         public void findAll(){
+
+             System.out.println("--------------------------------------");
+             System.out.println("All cars in double pq ranked by Price");
+             System.out.println("--------------------------------------");
+             for(int i=1;i<=N;i++){
+                 Car tt=pq[i].car_p;
+                 System.out.println("VIN:"+tt.getVIN()+" Make: "+tt.getMake()+" Model: "+tt.getModel()+" Color: "+tt.getColor()+" Mileage: "+tt.getMileage()+" Price: "+tt.getPrice());
+                  
+                 }
+
+             System.out.println("--------------------------------------");
+             System.out.println("All cars in double pq ranked by Mileage");
+
+             System.out.println("--------------------------------------");
+             for(int i=1;i<=N;i++){
+                 Car tt=pq[i].car_m;
+                 System.out.println("VIN:"+tt.getVIN()+" Make: "+tt.getMake()+" Model: "+tt.getModel()+" Color: "+tt.getColor()+" Mileage: "+tt.getMileage()+" Price: "+tt.getPrice());
+                  
+                 }
          
+          
+         }
+         public void findSpe(String vin){//find specific car
+             
+             int pp=pindexpq.get(vin);//price position
+            
+             Car tt=pq[pp].car_p;
+             System.out.println("VIN:"+tt.getVIN()+" Make: "+tt.getMake()+" Model: "+tt.getModel()+" Color: "+tt.getColor()+" Mileage: "+tt.getMileage()+" Price: "+tt.getPrice());
+             
+         
+     }
         /**
          * Unit tests the <tt>MinPQ</tt> data type.
          */
         public static void main(String[] args) {
             DoublePQ minpq = new DoublePQ();
-            Car car=new Car("789","Vos","Van",2000,50,"grey");
+            Car car=new Car("789","Vos","Van",2000,90,"grey");
             Car car1=new Car("789","Ford","Van",2001,52,"grey");
             Car car2=new Car("791","BMW","Van",10000,500,"grey");
             Car car3=new Car("792","R","Van",909,1000,"grey");
@@ -409,6 +477,7 @@ import java.util.Set;
             Car car5=new Car("794","Vos","Van",3000,50000,"grey");
             Car car6=new Car("795","BMW","Van",10001,51,"grey");
             Car car7=new Car("796","Vos","Van",2,50,"grey");
+            
             List<Car>listcar=new ArrayList<Car>();   
             listcar.add(car);
             listcar.add(car1);
@@ -456,10 +525,13 @@ import java.util.Set;
             {
                 System.out.println(i+"--"+minpq.mindexpq.get(i));
             }
-            Car tt=minpq.findP("Van", "BMW");
-            System.out.println("VIN:"+tt.getVIN()+" Make: "+tt.getMake()+" Model: "+tt.getModel()+" Color: "+tt.getColor()+" Mileage: "+tt.getMileage()+" Price: "+tt.getPrice());
+           Car tt=minpq.findP("Van", "BMW");
+           System.out.println("VIN:"+tt.getVIN()+" Make: "+tt.getMake()+" Model: "+tt.getModel()+" Color: "+tt.getColor()+" Mileage: "+tt.getMileage()+" Price: "+tt.getPrice());
+           Car aa=minpq.findM("Van", "Vos");
+           System.out.println("VIN:"+aa.getVIN()+" Make: "+aa.getMake()+" Model: "+aa.getModel()+" Color: "+aa.getColor()+" Mileage: "+aa.getMileage()+" Price: "+aa.getPrice());
             
-                     
+                     minpq.findAll();
+                     minpq.findSpe("792");
            
         }
 
