@@ -11,25 +11,32 @@ public class CarTracker {
         print("");
        int i=0;
        DoublePQ minpq = new DoublePQ();
-        print("input 1 to add car");
-            print("input 2 to update car");
-            print("input 3 to remove car");
-            print("input 4 to retrieve lowest price car");
-            print("input 5 to retrieve lowest mileage car");
-            print("input 6 to retrieve lowest price car by model and make");
-            print("input 7 to retrieve lowest mileage car by model and make");
-            print("input 8 to exit");
+       print("input 1 to add car");
+       print("input 2 to update car");
+       print("input 3 to remove car");
+       print("input 4 to retrieve lowest price car");
+       print("input 5 to retrieve lowest mileage car");
+       print("input 6 to retrieve lowest price car by model and make");
+       print("input 7 to retrieve lowest mileage car by model and make");
+       print("input 8 to retreve all cars in double PQ");
+       print("input 9 to quite");
         do{
-           
+            
             
             
         i=sc.nextInt();
         if(i==1){//add car
+           print("please input the VIN of the car");
            String vin= sc.next();
+           print("please input the make of the car");
            String make=sc.next();
+           print("please input the model of the car");
            String model=sc.next();
+           print("please input the price of the car");
            double price=sc.nextDouble();
+           print("please input the mileage of the car");
            int mileage=sc.nextInt();
+           print("please input the color of the car");
            String color=sc.next();
            Car car=new Car(vin,make,model,price,mileage,color);
           
@@ -102,8 +109,10 @@ public class CarTracker {
              }else{
                  print("not find the car in this model and make");
              }
+         }else if(i==8){
+             minpq.findAll();
          }
         
-        }while(i!=8);
+        }while(i!=9);
     }
 }
