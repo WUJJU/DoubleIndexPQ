@@ -47,7 +47,7 @@ correctly?:
 
 
 Additional comments to the grader:
-
+I didn't make VIN check in Car class.
 
 
 
