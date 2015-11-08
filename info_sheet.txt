@@ -6,23 +6,24 @@ You must submit an information sheet with every assignment.  Also be sure
 to submit all materials following the procedures described on the
 submission procedures page.
 
-Name:  
+Name:  Hao Wu
 
-Lecture section:  
+Lecture section:  CS1501
 
-Recitation day and time:  
+Recitation day and time:  Friday 2-3PM
 
-Assignment #:  
+Assignment #:  3
 
-Program due date:  
+Program due date:  Nov 8th 11:59pm
 
-Handed in date:  
+Handed in date:  Nov 8th 10am
 
 Source code file name(s):
 
-
-
-
+Car.java   stores Car object
+CarTracker.java    Main class to compile and run
+DoublePQ.java    implements double indexable Priority Queue
+StdOut.java
 
 
 
