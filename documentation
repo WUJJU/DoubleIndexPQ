@@ -1,10 +1,11 @@
 Description of my code:(by Hao Wu)
 In CarTracker.java, I wrote the menu-based interface for user.
-And in Car.java, I wrote the Car class including all attributes need for implements.
+And in Car.java, I wrote the Car class including all attributes need for implementation.
 
 DoublePQ.java, it contains all methods and data structure I used for implements the assignment3.
+
 First, I created an inner class, called DoubleCar, which includes two Car object, car_p for price ranking, and car_m for mileage 
-ranking. I also initialzed two HashMap to store position of car_m with Key VIN, and positon of car_p with Key VIN.
+ranking. I also initialzed two HashMap to storing position of car_m with Key VIN, and positon of car_p with Key VIN.
 Then I used Priority Queue to store DoubleCar object when user insert into PQ.
 Cause PQ is a heap, evertime user insert into PQ, the heap will keep balance and hold its rule. Also, everytime, I would update
 the position value in two HashMaps.
@@ -13,7 +14,7 @@ Storing Objects space: 3*N=Θ(n), N is the number of car. Why 3? because I have 
 
 Updating the color of car takes Θ(1), because I just need find the position in both indexes, and update the car's color in the PQ.
 Updating the price or mileage of car takes Θ(lg(n)), because after I find the position in both indexes, and update the car's price
-or mileage, I have to keep PQ a heap, therefore takes lgn time.
+or mileage, I have to keep PQ a heap, therefore takes  Θ(lg(n)) time.
 
 Removing the specific car also takes Θ(lg(n)), we swich specific car with last car in PQ, then delete the last object in PQ, and 
 doing sink on that specific position to keep heap a heap. It takes Θ(1) to find the car in PQ, and takes Θ(1) to delete last object
@@ -23,7 +24,7 @@ is 6*lg(n).But final time is Θ(lg(n)).
 Retrieving the lowest price or mileage of car, the time Θ(1) in Priority Queue.
 
 Retrieving the lowest price or mileage car by make and model, I first sort the PQ by its price or mileage, the time is Θ(nlg(n)).
-Then go through the sorted array, it takes time n. So final time is Θ(lg(n)).
+Then go through the sorted array, it takes time n. So final time is  Θ(n)=Θ(nlg(n))+ Θ(n).
 
 By using double indexable PQ, it is still quick to find minimum value based on different attributs, the find time is Θ(1).
 Inserting and removing time is Θ(lg(n)). And adding two HashMap to record positon doesn't change asymptotic time and space,
